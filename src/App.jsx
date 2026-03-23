@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import './App.css'
+import SignUp from './signup'
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('login') // 'login' or 'signup'
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -11,6 +13,12 @@ function App() {
     console.log('Login attempt:', { phone, password })
   }
 
+  // Render Sign Up page if currentPage is 'signup'
+  if (currentPage === 'signup') {
+    return <SignUp onBackToLogin={() => setCurrentPage('login')} />
+  }
+
+  // Default: Render Login page
   return (
     <div className="shopee-login">
       <section className="login-container">
@@ -91,7 +99,7 @@ function App() {
 
           {/* Sign Up Link */}
           <p className="signup-prompt">
-            Don't have an account? <a href="#" className="signup-link">Sign up</a>
+            Don't have an account? <button onClick={() => setCurrentPage('signup')} className="signup-link" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Sign up</button>
           </p>
         </div>
       </section>
